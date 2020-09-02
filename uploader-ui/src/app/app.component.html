@@ -1,0 +1,16 @@
+<h1>{{title}}</h1>
+
+<label class="btn">
+  <span>Choose File:</span>
+  <input #imageInput
+         type="file"
+         accept=".pdf,.png,.jpg"
+         (change)="processFile(imageInput)">
+</label>
+<button (click)="onUpload()">Submit image</button>
+
+<!-- <input
+  style="display: none"
+  type="file" (change)="onFileChanged($event)"
+  #fileInput>
+<button (click)="fileInput.click()">Select File</button> -->
