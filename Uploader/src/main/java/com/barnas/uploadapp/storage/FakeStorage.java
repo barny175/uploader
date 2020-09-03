@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class FakeStorage implements StorageService {
     @Override
-    public void store(MultipartFile file) {
-        System.out.println("Storing file " + file.getOriginalFilename());
+    public void store(MultipartFile file, String description) {
+        System.out.println("Storing file " + file.getOriginalFilename() + " description:" + description);
     }
 }

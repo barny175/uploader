@@ -25,9 +25,9 @@ public class UploadController {
 
     @CrossOrigin
     @PostMapping("/upload")
-    public UploadResponse handleFileUpload(@RequestParam("file") MultipartFile file) {
+    public UploadResponse handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("description") String description) {
 
-        storageService.store(file);
+        storageService.store(file, description);
 
         return new UploadResponse(file.getOriginalFilename(), file.getSize());
     }
