@@ -11,6 +11,7 @@ export class UploadFileComponent implements OnInit {
 
   fileToUpload: File = null;
   description: string = "Description";
+  message = '';
 
   constructor(private uploadService: UploadFileService) { }
 
@@ -19,21 +20,29 @@ export class UploadFileComponent implements OnInit {
 
   selectFile(files) {
     this.fileToUpload = files.target.files.item(0);
+    this.resetError();
   }
 
   onUpload() {
+    if (!this.description) {
+      this.message = 'Failed';
+      this.description = 'Required';
+      return;
+    }
+    
     this.uploadService.upload(this.fileToUpload, this.description).subscribe(
       event => {
-        if (event.type === HttpEventType.UploadProgress) {
-        //   this.progress = Math.round(100 * event.loaded / event.total);
-        } else if (event instanceof HttpResponse) {
-        //   this.message = event.body.message;
+        if (event instanceof HttpResponse) {
+           this.message = 'Success';
         }
       },
       err => {
-        // this.progress = 0;
-        // this.message = 'Could not upload the file!';
+        this.message = 'Could not upload the file!';
         this.fileToUpload = undefined;
       });
+  }
+
+  resetError() {
+    this.message = '';
   }
 }

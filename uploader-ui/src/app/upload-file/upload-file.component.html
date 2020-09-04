@@ -1,7 +1,7 @@
 <div class="form-group">
   <label class="btn btn-default">File: </label>
-    <input type="file"
-      accept=".png,.jpeg,.jpg"
+  <input type="file"
+      accept=".png,.jpeg,.jpg,.pdf"
       (change)="selectFile($event)" />
 </div>
 
@@ -15,3 +15,5 @@
     Upload
   </button>
 </div>
+
+<div class="alert alert-light" role="alert">{{ message }}</div>
