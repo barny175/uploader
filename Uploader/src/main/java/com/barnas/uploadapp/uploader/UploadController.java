@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
+import java.io.IOException;
 
 /**
  * @author Martin Barnas (martin.barnas@avast.com)
@@ -27,8 +28,11 @@ public class UploadController {
     @PostMapping("/upload")
     public UploadResponse handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("description") String description) {
 
-        storageService.store(file, description);
-
-        return new UploadResponse(file.getOriginalFilename(), file.getSize());
+        try {
+            storageService.store(file.getOriginalFilename(), file.getBytes(), description);
+            return new UploadResponse(file.getOriginalFilename(), file.getSize());
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot upload file.", e);
+        }
     }
 }
