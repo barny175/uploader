@@ -11,19 +11,21 @@ import org.testcontainers.containers.localstack.LocalStackContainer;
 
 import java.io.IOException;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * @author Martin Barnas (martin.barnas@avast.com)
  * @since 05/09/2020.
  */
 @SpringBootTest()
-public class S3StorageServiceTest {
+public class S3StorageTest {
     public static final String CONTENT = "this content of the file in s3";
 
     @Autowired
-    private S3StorageService storageService;
+    private AmazonS3 amazonS3;
 
     @Autowired
-    private AmazonS3 amazonS3;
+    private S3Storage s3Storage;
 
     @Rule
     public LocalStackContainer localStack = new LocalStackContainer()
@@ -32,14 +34,20 @@ public class S3StorageServiceTest {
 
     @Test
     public void uploadFileToS3() {
-        storageService.store("test.txt", CONTENT.getBytes(), "test file");
-        S3Object object = amazonS3.getObject("crossover.hw", "test.txt");
-        String fileContent = null;
-        try {
-            fileContent = new String(object.getObjectContent().readAllBytes());
+        s3Storage.store("test.txt", CONTENT.getBytes());
+        try (S3Object object = amazonS3.getObject("crossover.hw", "test.txt")) {
+            String fileContent = new String(object.getObjectContent().readAllBytes());
             Assertions.assertEquals(CONTENT, fileContent);
         } catch (IOException e) {
             Assertions.fail(e);
         }
+    }
+
+    @Test
+    public void removeFileFromS3() {
+        String filename = "test.txt";
+        s3Storage.store(filename, CONTENT.getBytes());
+        s3Storage.remove(filename);
+        assertThat(amazonS3.doesObjectExist("crossover.hw", filename)).isFalse();
     }
 }

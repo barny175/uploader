@@ -12,6 +12,11 @@
       <option name="url" value="https://artifactory.int.avast.com/artifactory/maven-snapshot" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="io.spring.repo.maven.release" />
+      <option name="name" value="io.spring.repo.maven.release" />
+      <option name="url" value="https://repo.spring.io/release/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="avast-artifactory" />
       <option name="name" value="Avast artifactory releases" />
       <option name="url" value="https://artifactory.int.avast.com/artifactory/maven" />
