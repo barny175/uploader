@@ -1,4 +1,4 @@
-package com.barnas.uploadapp.storage.s3;
+package com.barnas.uploadapp.storage.amazon;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.barnas.uploadapp.storage.StorageException;

@@ -1,6 +1,6 @@
 package com.barnas.uploadapp.uploader;
 
-import com.barnas.uploadapp.storage.StorageService;
+import com.barnas.uploadapp.storage.UploadService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,11 +17,11 @@ import java.io.IOException;
 @RestController
 public class UploadController {
 
-    private final StorageService storageService;
+    private final UploadService uploadService;
 
     @Inject
-    public UploadController(StorageService storageService) {
-        this.storageService = storageService;
+    public UploadController(UploadService uploadService) {
+        this.uploadService = uploadService;
     }
 
     @CrossOrigin
@@ -29,7 +29,7 @@ public class UploadController {
     public UploadResponse handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("description") String description) {
 
         try {
-            storageService.store(file.getOriginalFilename(), file.getBytes(), description);
+            uploadService.store(file.getOriginalFilename(), file.getBytes(), description);
             return new UploadResponse(file.getOriginalFilename(), file.getSize());
         } catch (IOException e) {
             throw new RuntimeException("Cannot upload file.", e);

@@ -1,7 +1,7 @@
-package com.barnas.uploadapp.storage.s3;
+package com.barnas.uploadapp.storage.amazon;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.barnas.uploadapp.storage.StorageService;
+import com.barnas.uploadapp.storage.UploadService;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
@@ -12,22 +12,17 @@ import javax.inject.Inject;
  * @since 04/09/2020.
  */
 @Service
-public class AwsStorageService implements StorageService {
+public class AwsUploadService implements UploadService {
 
     private final S3Storage fileStorage;
 
     @Inject
-    public AwsStorageService(S3Storage s3Storage, ResourceLoader resourceLoader, AmazonS3 amazonS3) {
+    public AwsUploadService(S3Storage s3Storage, ResourceLoader resourceLoader, AmazonS3 amazonS3) {
         this.fileStorage = s3Storage;
     }
 
     @Override
     public void store(String filename, byte[] bytes, String description) {
         fileStorage.store(filename, bytes);
-    }
-
-    @Override
-    public void remove(String file) {
-
     }
 }
