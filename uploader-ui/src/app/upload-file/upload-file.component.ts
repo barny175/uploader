@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-upload-file',
@@ -12,6 +13,7 @@ export class UploadFileComponent implements OnInit {
   fileToUpload: File = null;
   description: string = "Description";
   message = '';
+  @Output() notify = new EventEmitter();
 
   constructor(private uploadService: UploadFileService) { }
 
@@ -29,11 +31,13 @@ export class UploadFileComponent implements OnInit {
       this.description = 'Required';
       return;
     }
-    
+
     this.uploadService.upload(this.fileToUpload, this.description).subscribe(
       event => {
         if (event instanceof HttpResponse) {
            this.message = 'Success';
+           this.notify.emit();
+           console.log("Successfully uploaded.")
         }
       },
       err => {

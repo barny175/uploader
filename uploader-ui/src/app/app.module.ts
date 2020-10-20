@@ -4,11 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { UploadFileComponent } from './upload-file/upload-file.component';
+import { ListFilesComponent } from './list-files/list-files.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UploadFileComponent
+    UploadFileComponent,
+    ListFilesComponent
   ],
   imports: [
     BrowserModule,

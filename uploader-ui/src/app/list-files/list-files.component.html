@@ -1,0 +1,13 @@
+<table>
+  <tr>
+    <th>Filename</th>
+    <th>Description</th>
+    <th>Size</th>
+  </tr>
+
+  <tr *ngFor="let file of files">
+    <td><a href="{{ file.downloadPath }}" download="{{ file.filename }}">{{ file.filename }}</a></td>
+    <td>{{ file.description }}</td>
+    <td>{{ file.size }}</td>
+  </tr>
+</table>

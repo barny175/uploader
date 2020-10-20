@@ -2,6 +2,14 @@
     <div style="margin: 20px">
       <h1>{{title}}</h1>
 
-      <app-upload-file></app-upload-file>
+      <app-upload-file
+        (notify)="onNotify()">
+      </app-upload-file>
     </div>
+</div>
+
+<div class="container" style="width: 800px; margin: 20px">
+  <h1>Files</h1>
+
+  <app-list-files></app-list-files>
 </div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { UploadFilesComponent } from './components/upload-files/upload-files.component';
+import { UploadFileComponent } from './upload-file/upload-file.component';
+import { ListFilesComponent } from './list-files/list-files.component';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,8 @@ import { UploadFilesComponent } from './components/upload-files/upload-files.com
 })
 export class AppComponent {
   title = 'Image Uploader';
+
+  onNotify() {
+    
+  }
 }

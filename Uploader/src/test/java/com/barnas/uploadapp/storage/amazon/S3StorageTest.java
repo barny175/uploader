@@ -34,12 +34,15 @@ public class S3StorageTest {
 
     @Test
     public void uploadFileToS3() {
-        s3Storage.store("test.txt", CONTENT.getBytes());
-        try (S3Object object = amazonS3.getObject("crossover.hw", "test.txt")) {
+        String filename = "test.txt";
+        s3Storage.store(filename, CONTENT.getBytes());
+        try (S3Object object = amazonS3.getObject("crossover.hw", filename)) {
             String fileContent = new String(object.getObjectContent().readAllBytes());
             Assertions.assertEquals(CONTENT, fileContent);
         } catch (IOException e) {
             Assertions.fail(e);
+        } finally {
+            s3Storage.remove(filename);
         }
     }
 

@@ -1,7 +1,9 @@
 package com.barnas.uploadapp.storage.amazon;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.S3Object;
 import com.barnas.uploadapp.storage.StorageException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.WritableResource;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
@@ -16,6 +19,7 @@ import java.io.OutputStream;
  * @since 07/09/2020.
  */
 @Service
+@Slf4j
 public class S3Storage {
 
     public static final String BUCKET = "crossover.hw";
@@ -29,6 +33,8 @@ public class S3Storage {
     }
 
     public void store(String filename, byte[] bytes) {
+        log.debug("Storing file {} to bucket {}", filename, BUCKET);
+
         Resource resource = this.resourceLoader.getResource(s3Url(filename));
         try (OutputStream outputStream = ((WritableResource) resource).getOutputStream()){
             outputStream.write(bytes);
@@ -37,11 +43,17 @@ public class S3Storage {
         }
     }
 
+    public InputStream get(String filename) {
+        S3Object s3Object = amazonS3.getObject(BUCKET, filename);
+        return s3Object.getObjectContent();
+    }
+
     private String s3Url(String filename) {
         return "s3://" + BUCKET + "/" + filename;
     }
 
     public void remove(String filename) {
+        log.debug("Deleting file {}", filename);
         amazonS3.deleteObject(BUCKET, filename);
     }
 }
