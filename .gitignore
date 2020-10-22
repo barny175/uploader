@@ -2,3 +2,5 @@ Uploader/.idea/libraries
 Uploader/.idea/sonarlint
 Uploader/target
 Uploader/config
+uploader-ui/dist
+uploader-ui/node_modules
