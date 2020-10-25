@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.tuple;
  * @since 19/10/2020.
  */
 @SpringBootTest
-class AwsUploadServiceTest {
+class AwsFileServiceTest {
 
     @Inject
     S3Storage fileStorage;
@@ -25,23 +25,23 @@ class AwsUploadServiceTest {
     @Inject
     FileRepository fileRepository;
 
-    private AwsUploadService awsUploadService;
+    private AwsFileService awsFileService;
 
     @BeforeEach
     public void setup() {
-        this.awsUploadService = new AwsUploadService(fileStorage, fileRepository);
+        this.awsFileService = new AwsFileService(fileStorage, fileRepository);
     }
 
     @Test
     public void store() {
         String filename = "test.file" + new Random().nextInt();
         try {
-            awsUploadService.store(filename, "content".getBytes(), "test file");
+            awsFileService.store(filename, "content".getBytes(), "test file");
 
             assertThat(fileRepository.findByFilename(filename))
                     .isPresent();
 
-            assertThat(awsUploadService.list())
+            assertThat(awsFileService.list())
                     .extracting(FileDescriptor::getName, FileDescriptor::getDescription)
                     .contains(tuple(filename, "test file"));
         } finally {

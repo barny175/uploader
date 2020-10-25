@@ -7,10 +7,12 @@ package com.barnas.uploadapp.uploader;
 public class UploadResponse {
     private String fileName;
     private long size;
+    private long id;
 
-    public UploadResponse(String fileName, long size) {
+    public UploadResponse(String fileName, long size, long id) {
         this.fileName = fileName;
         this.size = size;
+        this.id = id;
     }
 
     public String getFileName() {
@@ -27,5 +29,13 @@ public class UploadResponse {
 
     public void setSize(long size) {
         this.size = size;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

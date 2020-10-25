@@ -32,10 +32,10 @@ public class S3Storage {
         this.amazonS3 = amazonS3;
     }
 
-    public void store(String filename, byte[] bytes) {
-        log.debug("Storing file {} to bucket {}", filename, BUCKET);
+    public void store(String id, byte[] bytes) {
+        log.debug("Storing file {} to bucket {}", id, BUCKET);
 
-        Resource resource = this.resourceLoader.getResource(s3Url(filename));
+        Resource resource = this.resourceLoader.getResource(s3Url(id));
         try (OutputStream outputStream = ((WritableResource) resource).getOutputStream()){
             outputStream.write(bytes);
         } catch (IOException e) {

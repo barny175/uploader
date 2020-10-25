@@ -3,11 +3,17 @@
     <th>Filename</th>
     <th>Description</th>
     <th>Size</th>
+    <th></th>
   </tr>
 
   <tr *ngFor="let file of files">
     <td><a href="{{ file.downloadPath }}" download="{{ file.filename }}">{{ file.filename }}</a></td>
     <td>{{ file.description }}</td>
     <td>{{ file.size }}</td>
+    <td>
+      <button type="button" name="delete">
+        <img src="assets/images/delete.png" alt="delete" width="16" height="16" (click)="remove(file.id)">
+      </button>
+    </td>
   </tr>
 </table>

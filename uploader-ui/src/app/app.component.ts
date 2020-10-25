@@ -11,6 +11,6 @@ export class AppComponent {
   title = 'Image Uploader';
 
   onNotify() {
-    
+      console.log("file uploaded");
   }
 }

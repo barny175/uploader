@@ -7,11 +7,13 @@ import java.util.List;
  * @author Martin Barnas (martin.barnas@avast.com)
  * @since 01/09/2020.
  */
-public interface UploadService {
+public interface FileService {
 
-    void store(String filename, byte[] bytes, String description);
+    long store(String fileName, byte[] bytes, String description);
 
     List<FileDescriptor> list();
 
     InputStream get(long id);
+
+    void delete(long id);
 }

@@ -20,4 +20,16 @@ export class ListFilesService {
 
     return this.http.get<Files>(`${this.baseUrl}/list`);
   }
+
+  remove(id) {
+    console.log("remove " + id);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    this.http.delete(`${this.baseUrl}/${id}`, httpOptions)
+      .subscribe();
+  }
 }

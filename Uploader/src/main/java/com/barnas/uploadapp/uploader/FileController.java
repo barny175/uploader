@@ -1,7 +1,7 @@
 package com.barnas.uploadapp.uploader;
 
 import com.barnas.uploadapp.storage.FileDescriptor;
-import com.barnas.uploadapp.storage.UploadService;
+import com.barnas.uploadapp.storage.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 @Slf4j
 public class FileController {
 
-    private final UploadService uploadService;
+    private final FileService uploadService;
 
     @Inject
-    public FileController(UploadService uploadService) {
+    public FileController(FileService uploadService) {
         this.uploadService = uploadService;
     }
 
@@ -33,9 +33,9 @@ public class FileController {
     public UploadResponse handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("description") String description) {
 
         try {
-            uploadService.store(file.getOriginalFilename(), file.getBytes(), description);
+            long id = uploadService.store(file.getOriginalFilename(), file.getBytes(), description);
             log.debug("File {} uploaded to store.", file.getOriginalFilename());
-            return new UploadResponse(file.getOriginalFilename(), file.getSize());
+            return new UploadResponse(file.getOriginalFilename(), file.getSize(), id);
         } catch (IOException e) {
             throw new RuntimeException("Cannot upload file.", e);
         }
@@ -61,5 +61,10 @@ public class FileController {
             produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody byte[] download(@PathVariable("id") long id) throws IOException {
         return uploadService.get(id).readAllBytes();
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") long id) {
+        uploadService.delete(id);
     }
 }

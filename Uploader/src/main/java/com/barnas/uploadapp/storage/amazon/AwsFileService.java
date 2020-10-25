@@ -1,7 +1,8 @@
 package com.barnas.uploadapp.storage.amazon;
 
 import com.barnas.uploadapp.storage.FileDescriptor;
-import com.barnas.uploadapp.storage.UploadService;
+import com.barnas.uploadapp.storage.FileService;
+import com.barnas.uploadapp.storage.StorageException;
 import com.barnas.uploadapp.storage.amazon.db.FileDescriptorMapper;
 import com.barnas.uploadapp.storage.amazon.db.FileEntity;
 import com.barnas.uploadapp.storage.amazon.db.FileRepository;
@@ -21,22 +22,23 @@ import java.util.stream.StreamSupport;
  */
 @Service
 @Slf4j
-public class AwsUploadService implements UploadService {
+public class AwsFileService implements FileService {
 
     private final S3Storage fileStorage;
     private final FileRepository fileRepository;
 
     @Inject
-    public AwsUploadService(S3Storage s3Storage, FileRepository fileRepository) {
+    public AwsFileService(S3Storage s3Storage, FileRepository fileRepository) {
         this.fileStorage = s3Storage;
         this.fileRepository = fileRepository;
     }
 
     @Override
-    public void store(String filename, byte[] bytes, String description) {
-        fileStorage.store(filename, bytes);
-        fileRepository.save(new FileEntity(filename, description, bytes.length));
-        log.debug("File {} stored", filename);
+    public long store(String fileName, byte[] bytes, String description) {
+        FileEntity entity = fileRepository.save(new FileEntity(fileName, description, bytes.length));
+        fileStorage.store(entity.getId().toString(), bytes);
+        log.debug("File {} stored with id {}", fileName, entity.getId());
+        return entity.getId();
     }
 
     @Override
@@ -50,5 +52,15 @@ public class AwsUploadService implements UploadService {
     public InputStream get(long id) {
         Optional<FileEntity> entity = fileRepository.findById(id);
         return fileStorage.get(entity.orElseThrow().getFilename());
+    }
+
+    @Override
+    public void delete(long id) {
+        FileEntity entity = fileRepository.findById(id)
+            .orElseThrow(() -> new StorageException("Could not find entity " + id));
+
+        log.debug("Removing file {} ({})", entity.getFilename(), id);
+        fileRepository.deleteById(id);
+        fileStorage.remove(entity.getFilename());
     }
 }
