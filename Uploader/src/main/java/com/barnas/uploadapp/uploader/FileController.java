@@ -22,18 +22,18 @@ import java.util.stream.Collectors;
 @Slf4j
 public class FileController {
 
-    private final FileService uploadService;
+    private final FileService fileService;
 
     @Inject
-    public FileController(FileService uploadService) {
-        this.uploadService = uploadService;
+    public FileController(FileService fileService) {
+        this.fileService = fileService;
     }
 
     @PostMapping("/upload")
     public UploadResponse handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("description") String description) {
 
         try {
-            long id = uploadService.store(file.getOriginalFilename(), file.getBytes(), description);
+            long id = fileService.store(file.getOriginalFilename(), file.getBytes(), description);
             log.debug("File {} uploaded to store.", file.getOriginalFilename());
             return new UploadResponse(file.getOriginalFilename(), file.getSize(), id);
         } catch (IOException e) {
@@ -43,7 +43,7 @@ public class FileController {
 
     @GetMapping("/list")
     public ListFilesResponse listFiles() {
-        List<FileResource> files = uploadService.list().stream()
+        List<FileResource> files = fileService.list().stream()
                 .map((FileDescriptor t) -> map(t))
                 .collect(Collectors.toList());
         return new ListFilesResponse(files);
@@ -60,11 +60,11 @@ public class FileController {
             value = "/download/{id}",
             produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody byte[] download(@PathVariable("id") long id) throws IOException {
-        return uploadService.get(id).readAllBytes();
+        return fileService.get(id).readAllBytes();
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") long id) {
-        uploadService.delete(id);
+        fileService.delete(id);
     }
 }
