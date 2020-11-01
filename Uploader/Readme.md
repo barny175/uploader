@@ -1,3 +1,5 @@
 Todo
+- use amazon RDS
 - refresh list when file successfully uploaded
-- run integration tests only  via failsafe in verify phase
+- properly handle errors
+- search files

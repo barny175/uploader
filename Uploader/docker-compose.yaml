@@ -1,14 +1,14 @@
 version: '3'
 services:
-  db:
-    image: postgres:12.4
+  mysql:
+    image: mysql:8.0
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: uploader
-    ports: ["5432:5432"]
+      MYSQL_ROOT_PASSWORD: password
+#      MYSQL_USER: db_user
+#      MYSQL_PASSWORD: db_password
+    ports: ["3306:3306"]
     volumes:
-      - postgres-data-uploader:/var/lib/postgresql/data
+    - mysql-data-uploader:/var/lib/mysql
 
 volumes:
-  postgres-data-uploader: {}
+  mysql-data-uploader: {}

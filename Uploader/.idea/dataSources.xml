@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="uploader@localhost" uuid="12b2bff8-428e-4d8d-a58c-6de66a8e0d9f">
+    <data-source source="LOCAL" name="postgres aws" uuid="0bf5de51-feeb-4d29-be98-b9a4ec7627ca">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/uploader</jdbc-url>
+      <jdbc-url>jdbc:postgresql://database-2.cdq0ksehrlcv.eu-west-2.rds.amazonaws.com:5432/uploader</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="postgres@localhost" uuid="ce0f09d6-ae37-4f34-8fd5-8151343b1270">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="uploader@localhost" uuid="01b982f3-7cc0-413d-a2ef-bba095c94e5c">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://localhost:3306/uploader?createDatabaseIfNotExists=true</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="mysql@localhost" uuid="fc74629b-71bf-4dac-9d56-97192ae261ca">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="mysql aws" uuid="84004185-0157-4f5d-96b8-2ba1a5e04e46">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://mysql.cdq0ksehrlcv.eu-west-2.rds.amazonaws.com:3306</jdbc-url>
     </data-source>
   </component>
 </project>
