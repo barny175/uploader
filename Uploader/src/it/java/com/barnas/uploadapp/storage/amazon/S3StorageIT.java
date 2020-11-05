@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 05/09/2020.
  */
 @SpringBootTest()
-public class S3StorageTest {
+public class S3StorageIT {
     public static final String CONTENT = "this content of the file in s3";
     public static final String TEST_FILE = "test.txt";
 

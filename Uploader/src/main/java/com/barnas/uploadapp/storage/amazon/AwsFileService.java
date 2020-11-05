@@ -61,6 +61,6 @@ public class AwsFileService implements FileService {
 
         log.debug("Removing file {} ({})", entity.getFilename(), id);
         fileRepository.deleteById(id);
-        fileStorage.remove(entity.getFilename());
+        fileStorage.remove(String.valueOf(id));
     }
 }

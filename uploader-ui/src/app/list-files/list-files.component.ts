@@ -11,18 +11,22 @@ import { Observable } from 'rxjs';
 export class ListFilesComponent implements OnInit {
   files;
   constructor(private filesService: ListFilesService) {
-    filesService.list().subscribe(
-      response => {
-        this.files = response.files
-      }
-    );
+    this.loadFiles();
   }
 
   ngOnInit(): void {
   }
 
-  remove(path) {
-    this.filesService.remove(path);
+  remove(id) {
+    this.filesService.remove(id);
+    loadFiles();
   }
 
+  loadFiles() {
+    this.filesService.list().subscribe(
+      response => {
+        this.files = response.files
+      }
+    );
+  }
 }

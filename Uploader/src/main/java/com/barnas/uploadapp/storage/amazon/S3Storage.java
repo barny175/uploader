@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
 import com.barnas.uploadapp.storage.StorageException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.WritableResource;
@@ -22,18 +23,19 @@ import java.io.OutputStream;
 @Slf4j
 public class S3Storage {
 
-    public static final String BUCKET = "crossover.hw";
     private final ResourceLoader resourceLoader;
     private final AmazonS3 amazonS3;
+    private final String bucket;
 
     @Inject
-    public S3Storage(ResourceLoader resourceLoader, AmazonS3 amazonS3) {
+    public S3Storage(ResourceLoader resourceLoader, AmazonS3 amazonS3, @Value("${s3.bucket}") String bucket) {
         this.resourceLoader = resourceLoader;
         this.amazonS3 = amazonS3;
+        this.bucket = bucket;
     }
 
     public void store(String id, byte[] bytes) {
-        log.debug("Storing file {} to bucket {}", id, BUCKET);
+        log.debug("Storing file {} to bucket {}", id, bucket);
 
         Resource resource = this.resourceLoader.getResource(s3Url(id));
         try (OutputStream outputStream = ((WritableResource) resource).getOutputStream()){
@@ -44,16 +46,16 @@ public class S3Storage {
     }
 
     public InputStream get(String filename) {
-        S3Object s3Object = amazonS3.getObject(BUCKET, filename);
+        S3Object s3Object = amazonS3.getObject(bucket, filename);
         return s3Object.getObjectContent();
     }
 
     private String s3Url(String filename) {
-        return "s3://" + BUCKET + "/" + filename;
+        return "s3://" + bucket + "/" + filename;
     }
 
     public void remove(String filename) {
         log.debug("Deleting file {}", filename);
-        amazonS3.deleteObject(BUCKET, filename);
+        amazonS3.deleteObject(bucket, filename);
     }
 }
