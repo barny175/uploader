@@ -5,6 +5,8 @@ import com.barnas.uploadapp.storage.amazon.db.FileRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import javax.inject.Inject;
 import java.util.Random;
@@ -16,11 +18,13 @@ import static org.assertj.core.api.Assertions.tuple;
  * @author Martin Barnas (martin.barnas@avast.com)
  * @since 19/10/2020.
  */
-@SpringBootTest
+@Testcontainers
+@SpringBootTest()
+@Import(AwsTestConfig.class)
 class AwsFileServiceTest {
 
     @Inject
-    S3Storage fileStorage;
+    S3Storage s3Storage;
 
     @Inject
     FileRepository fileRepository;
@@ -28,8 +32,8 @@ class AwsFileServiceTest {
     private AwsFileService awsFileService;
 
     @BeforeEach
-    public void setup() {
-        this.awsFileService = new AwsFileService(fileStorage, fileRepository);
+    public void setupEach() {
+        this.awsFileService = new AwsFileService(s3Storage, fileRepository);
     }
 
     @Test
@@ -47,7 +51,7 @@ class AwsFileServiceTest {
         } finally {
             fileRepository.findByFilename(filename)
                     .ifPresent(fe -> fileRepository.delete(fe));
-            fileStorage.remove(filename);
+            s3Storage.remove(filename);
         }
     }
 }
