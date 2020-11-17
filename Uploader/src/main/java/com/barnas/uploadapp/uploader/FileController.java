@@ -2,6 +2,7 @@ package com.barnas.uploadapp.uploader;
 
 import com.barnas.uploadapp.storage.FileDescriptor;
 import com.barnas.uploadapp.storage.FileService;
+import com.barnas.uploadapp.storage.StorageException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -60,7 +61,9 @@ public class FileController {
             value = "/download/{id}",
             produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody byte[] download(@PathVariable("id") long id) throws IOException {
-        return fileService.get(id).readAllBytes();
+        return fileService.get(id)
+                .orElseThrow(() -> new StorageException("File not found."))
+                .readAllBytes();
     }
 
     @DeleteMapping("/{id}")

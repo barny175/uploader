@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.Assertions.tuple;
 
 /**
@@ -52,6 +53,21 @@ class AwsFileServiceTest {
             fileRepository.findByFilename(filename)
                     .ifPresent(fe -> fileRepository.delete(fe));
             s3Storage.remove(filename);
+        }
+    }
+
+    @Test
+    public void delete() {
+        String filename = "test.file" + new Random().nextInt();
+        long fileId = awsFileService.store(filename, "content".getBytes(), "test file");
+
+        awsFileService.delete(fileId);
+        assertThat(awsFileService.get(fileId)).isEmpty();
+        try {
+            s3Storage.get(String.valueOf(fileId));
+            fail("Exceptions is expected here.");
+        } catch (Exception e) {
+
         }
     }
 }

@@ -19,7 +19,7 @@ export class ListFilesComponent implements OnInit {
 
   remove(id) {
     this.filesService.remove(id);
-    loadFiles();
+    this.loadFiles();
   }
 
   loadFiles() {

@@ -2,6 +2,7 @@ package com.barnas.uploadapp.storage;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Martin Barnas (martin.barnas@avast.com)
@@ -13,7 +14,7 @@ public interface FileService {
 
     List<FileDescriptor> list();
 
-    InputStream get(long id);
+    Optional<InputStream> get(long id);
 
     void delete(long id);
 }

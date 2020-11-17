@@ -29,7 +29,7 @@
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://mysql-2.cdq0ksehrlcv.eu-west-2.rds.amazonaws.com:3306/uploader</jdbc-url>
+      <jdbc-url>jdbc:mysql://uploader-db.cdq0ksehrlcv.eu-west-2.rds.amazonaws.com:3306/uploader</jdbc-url>
       <driver-properties>
         <property name="createDatabaseIfNotExist" value="TRUE" />
       </driver-properties>

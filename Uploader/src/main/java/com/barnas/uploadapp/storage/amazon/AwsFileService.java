@@ -49,9 +49,9 @@ public class AwsFileService implements FileService {
     }
 
     @Override
-    public InputStream get(long id) {
+    public Optional<InputStream> get(long id) {
         Optional<FileEntity> entity = fileRepository.findById(id);
-        return fileStorage.get(entity.orElseThrow().getFilename());
+        return entity.map(e -> fileStorage.get(String.valueOf(id)));
     }
 
     @Override
