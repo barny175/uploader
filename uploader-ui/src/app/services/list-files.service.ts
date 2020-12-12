@@ -29,7 +29,6 @@ export class ListFilesService {
         'Content-Type':  'application/json'
       })
     };
-    this.http.delete(`${this.baseUrl}/${id}`, httpOptions)
-      .subscribe();
+    return this.http.delete(`${this.baseUrl}/${id}`, httpOptions);
   }
 }

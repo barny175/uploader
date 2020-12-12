@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Output, EventEmitter } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-upload-file',
@@ -13,11 +14,25 @@ export class UploadFileComponent implements OnInit {
   fileToUpload: File = null;
   description: string = "Description";
   message = '';
+  uploadForm;
   @Output() notify = new EventEmitter();
 
-  constructor(private uploadService: UploadFileService) { }
+  constructor(
+    private uploadService: UploadFileService,
+    private formBuilder: FormBuilder,
+  ) {
+    this.uploadForm = this.formBuilder.group({
+      file: '',
+      description: ''
+    })
+  }
 
   ngOnInit(): void {
+  }
+
+  onSubmit(data) {
+    console.log("Form submitted.");
+    this.uploadForm.reset();
   }
 
   selectFile(files) {

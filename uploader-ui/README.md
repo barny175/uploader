@@ -25,3 +25,14 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+TODO
+- testy na komponenty
+-- kdyz neni vybran soubor, tak disable submit
+-- kdyz neni zadan description, tak disable submitted
+-- kdyz dam submit, tak se provola upload service
+-- kdyz upload service vraci chybu, tak se zobrazi uzivateli
+- search by name
+- search by size
+- search by description
