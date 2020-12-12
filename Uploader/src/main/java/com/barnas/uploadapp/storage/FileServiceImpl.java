@@ -1,11 +1,8 @@
-package com.barnas.uploadapp.storage.amazon;
+package com.barnas.uploadapp.storage;
 
-import com.barnas.uploadapp.storage.FileDescriptor;
-import com.barnas.uploadapp.storage.FileService;
-import com.barnas.uploadapp.storage.StorageException;
-import com.barnas.uploadapp.storage.amazon.db.FileDescriptorMapper;
-import com.barnas.uploadapp.storage.amazon.db.FileEntity;
-import com.barnas.uploadapp.storage.amazon.db.FileRepository;
+import com.barnas.uploadapp.storage.db.FileDescriptorMapper;
+import com.barnas.uploadapp.storage.db.FileEntity;
+import com.barnas.uploadapp.storage.db.FileRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +19,13 @@ import java.util.stream.StreamSupport;
  */
 @Service
 @Slf4j
-public class AwsFileService implements FileService {
+public class FileServiceImpl implements FileService {
 
-    private final S3Storage fileStorage;
+    private final FileStorage fileStorage;
     private final FileRepository fileRepository;
 
     @Inject
-    public AwsFileService(S3Storage s3Storage, FileRepository fileRepository) {
+    public FileServiceImpl(FileStorage s3Storage, FileRepository fileRepository) {
         this.fileStorage = s3Storage;
         this.fileRepository = fileRepository;
     }

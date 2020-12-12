@@ -1,7 +1,8 @@
 package com.barnas.uploadapp.storage.amazon;
 
 import com.barnas.uploadapp.storage.FileDescriptor;
-import com.barnas.uploadapp.storage.amazon.db.FileRepository;
+import com.barnas.uploadapp.storage.FileServiceImpl;
+import com.barnas.uploadapp.storage.db.FileRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,11 +31,11 @@ class AwsFileServiceTest {
     @Inject
     FileRepository fileRepository;
 
-    private AwsFileService awsFileService;
+    private FileServiceImpl awsFileService;
 
     @BeforeEach
     public void setupEach() {
-        this.awsFileService = new AwsFileService(s3Storage, fileRepository);
+        this.awsFileService = new FileServiceImpl(s3Storage, fileRepository);
     }
 
     @Test

@@ -2,9 +2,11 @@ package com.barnas.uploadapp.storage.amazon;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
+import com.barnas.uploadapp.storage.FileStorage;
 import com.barnas.uploadapp.storage.StorageException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.WritableResource;
@@ -21,7 +23,8 @@ import java.io.OutputStream;
  */
 @Service
 @Slf4j
-public class S3Storage {
+@Profile("!local")
+public class S3Storage implements FileStorage {
 
     private final ResourceLoader resourceLoader;
     private final AmazonS3 amazonS3;
@@ -34,6 +37,7 @@ public class S3Storage {
         this.bucket = bucket;
     }
 
+    @Override
     public void store(String id, byte[] bytes) {
         log.debug("Storing file {} to bucket {}", id, bucket);
 
@@ -45,6 +49,7 @@ public class S3Storage {
         }
     }
 
+    @Override
     public InputStream get(String filename) {
         S3Object s3Object = amazonS3.getObject(bucket, filename);
         return s3Object.getObjectContent();
@@ -54,6 +59,7 @@ public class S3Storage {
         return "s3://" + bucket + "/" + filename;
     }
 
+    @Override
     public void remove(String filename) {
         log.debug("Deleting file {}", filename);
         amazonS3.deleteObject(bucket, filename);

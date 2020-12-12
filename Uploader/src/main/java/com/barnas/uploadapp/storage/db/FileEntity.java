@@ -1,4 +1,4 @@
-package com.barnas.uploadapp.storage.amazon.db;
+package com.barnas.uploadapp.storage.db;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

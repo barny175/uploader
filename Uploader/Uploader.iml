@@ -54,7 +54,6 @@
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator-autoconfigure:2.3.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator:2.3.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.11.2" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.11.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.11.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.2" level="project" />
     <orderEntry type="library" name="Maven: io.micrometer:micrometer-core:1.5.4" level="project" />
@@ -103,28 +102,26 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.2.8.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.2.8.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.7.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.testcontainers:testcontainers:1.14.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.testcontainers:testcontainers:1.15.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.13" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:2.2" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.30" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.jetbrains:annotations:19.0.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apache.commons:commons-compress:1.20" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.rnorth.duct-tape:duct-tape:1.0.8" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.rnorth.visible-assertions:visible-assertions:2.1.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.rnorth:tcp-unix-socket-proxy:1.0.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.kohlschutter.junixsocket:junixsocket-native-common:2.0.4" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.scijava:native-lib-loader:2.0.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.kohlschutter.junixsocket:junixsocket-common:2.0.4" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: net.java.dev.jna:jna-platform:5.5.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: net.java.dev.jna:jna:5.5.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.testcontainers:junit-jupiter:1.14.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: net.java.dev.jna:jna:5.2.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.github.docker-java:docker-java-api:3.2.7" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.11.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.github.docker-java:docker-java-transport-zerodep:3.2.7" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.github.docker-java:docker-java-transport:3.2.7" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.testcontainers:junit-jupiter:1.15.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.6.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.6.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.testcontainers:mysql:1.14.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.testcontainers:jdbc:1.14.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.testcontainers:database-commons:1.14.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.testcontainers:mysql:1.15.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.testcontainers:jdbc:1.15.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.testcontainers:database-commons:1.15.1" level="project" />
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-aws:2.1.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-aws-context:2.1.1.RELEASE" level="project" />
@@ -171,7 +168,7 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: mysql:mysql-connector-java:8.0.21" level="project" />
     <orderEntry type="library" name="Maven: org.liquibase:liquibase-core:3.8.9" level="project" />
     <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.3.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.testcontainers:localstack:1.14.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.testcontainers:localstack:1.15.1" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.12" level="project" />
   </component>
 </module>

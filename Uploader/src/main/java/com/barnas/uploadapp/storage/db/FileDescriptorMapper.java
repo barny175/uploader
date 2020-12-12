@@ -1,4 +1,4 @@
-package com.barnas.uploadapp.storage.amazon.db;
+package com.barnas.uploadapp.storage.db;
 
 import com.barnas.uploadapp.storage.FileDescriptor;
 

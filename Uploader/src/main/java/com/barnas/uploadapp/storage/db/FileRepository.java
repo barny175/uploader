@@ -1,4 +1,4 @@
-package com.barnas.uploadapp.storage.amazon.db;
+package com.barnas.uploadapp.storage.db;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
