@@ -1,20 +1,19 @@
 <h2>Upload</h2>
 
-<div class="form-group">
+<div >
   <label class="btn btn-default">File: </label>
   <input type="file"
       accept=".png,.jpeg,.jpg,.pdf"
       (change)="selectFile($event)" />
 </div>
 
-<div class="form-group">
+<div >
   <label>Description: </label>
-    <!-- <input  type="text" (change)="description=$event.target.value"/> -->
     <input  type="text" [(ngModel)]="description" name="description" placeholder="description"/>
 </div>
 
-<div class="form-group">
-  <button class="btn btn-success" [disabled]="!fileToUpload" (click)="onUpload()">
+<div >
+  <button class="btn btn-success" [disabled]="!fileToUpload || !description" (click)="onUpload()">
     Upload
   </button>
 </div>
