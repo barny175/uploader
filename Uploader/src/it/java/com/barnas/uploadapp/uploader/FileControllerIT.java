@@ -67,7 +67,7 @@ class FileControllerIT {
                 .andReturn();
     }
 
-    @Test()
+    @Test
     public void testList() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/list"))
                 .andDo(MockMvcResultHandlers.log())
@@ -76,6 +76,16 @@ class FileControllerIT {
                 .andExpect(jsonPath("files[1].filename").value("file2"))
                 .andReturn();
     }
+
+    @Test
+    public void testListWithFilter() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/list").param("description", "2"))
+                .andDo(MockMvcResultHandlers.log())
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("files[0].filename").value("file2"))
+                .andReturn();
+    }
+
 
     @Test
     public void testDelete() throws Exception {

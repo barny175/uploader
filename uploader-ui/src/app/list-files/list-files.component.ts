@@ -30,7 +30,7 @@ export class ListFilesComponent implements OnInit, OnChanges {
   get descSearch() { return this._descSearch; }
   set descSearch(descSearch: string) {
     this._descSearch = descSearch;
-    console.log(`Desc search: ${this._descSearch}`)
+    this.searchDesc();
   }
 
   files;
@@ -61,9 +61,14 @@ export class ListFilesComponent implements OnInit, OnChanges {
     );
   }
 
+  searchDesc() {
+    console.log("Search description " + this._descSearch);
+    this.loadFiles();
+  }
+
   loadFiles() {
     console.log("Load files");
-    this.filesService.list().subscribe(
+    this.filesService.list(this._descSearch).subscribe(
       response => {
         this.files = response.files
       }

@@ -43,9 +43,10 @@ public class FileController {
     }
 
     @GetMapping("/list")
-    public ListFilesResponse listFiles() {
+    public ListFilesResponse listFiles(@RequestParam(value = "description", required = false) String description) {
         List<FileResource> files = fileService.list().stream()
                 .map((FileDescriptor t) -> map(t))
+                .filter(fr -> description == null || fr.getDescription().contains(description))
                 .collect(Collectors.toList());
         return new ListFilesResponse(files);
     }

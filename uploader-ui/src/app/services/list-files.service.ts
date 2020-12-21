@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest, HttpHeaders, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpHeaders, HttpEvent, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Files } from './file';
 
@@ -11,14 +11,22 @@ export class ListFilesService {
 
   constructor(private http: HttpClient) { }
 
-  list(): Observable<Files> {
+  list(description): Observable<Files> {
     const req = {
       observe: 'body',
       reportProgress: true,
       responseType: 'json'
     };
 
-    return this.http.get<Files>(`${this.baseUrl}/list`);
+    const params = description
+      ? new HttpParams().set("description", description)
+      : null;
+
+    const options = {
+      params: params
+    };
+
+    return this.http.get<Files>(`${this.baseUrl}/list`, options);
   }
 
   remove(id) {
