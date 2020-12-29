@@ -1,5 +1,4 @@
 Todo
-- it is possible to upload file without description
 - properly handle errors
 - search files by size, by name
 - check na velikost souboru v klientovi

@@ -68,6 +68,14 @@ class FileControllerIT {
     }
 
     @Test
+    public void uploadFileWithoutDescriptionThrowsException() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.multipart("/upload")
+                .file(new MockMultipartFile("file", "test-file", "application/text", "content of the file".getBytes())))
+                .andDo(MockMvcResultHandlers.log())
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
     public void testList() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/list"))
                 .andDo(MockMvcResultHandlers.log())
