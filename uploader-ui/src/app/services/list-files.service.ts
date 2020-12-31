@@ -1,32 +1,30 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpRequest, HttpHeaders, HttpEvent, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Files } from './file';
+import { APP_CONFIG, AppConfig } from '../app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListFilesService {
-  private baseUrl = 'http://localhost:18080';
+  constructor(private http: HttpClient,
+    @Inject(APP_CONFIG) private config: AppConfig) { }
 
-  constructor(private http: HttpClient) { }
-
-  list(description): Observable<Files> {
+  list(filter): Observable<Files> {
     const req = {
       observe: 'body',
       reportProgress: true,
       responseType: 'json'
     };
 
-    const params = description
-      ? new HttpParams().set("description", description)
-      : null;
+    const params = new HttpParams({ fromObject: filter });
 
     const options = {
       params: params
     };
 
-    return this.http.get<Files>(`${this.baseUrl}/list`, options);
+    return this.http.get<Files>(`${this.config.baseUrl}/list`, options);
   }
 
   remove(id) {
@@ -37,6 +35,6 @@ export class ListFilesService {
         'Content-Type':  'application/json'
       })
     };
-    return this.http.delete(`${this.baseUrl}/${id}`, httpOptions);
+    return this.http.delete(`${this.config.baseUrl}/${id}`, httpOptions);
   }
 }

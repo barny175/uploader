@@ -1,7 +1,7 @@
 <table>
   <thead>
     <tr>
-      <th>Filename <app-list-files-search [nameSearch]="nameSearch"></app-list-files-search></th>
+      <th>Filename <input type="text" #nameSearch (keyup.enter)="onEnter(nameSearch.value)" placeholder="search"/></th>
       <th>Description <input type="text" name="descSearch" [(ngModel)]="descSearch" placeholder="search"/></th>
       <th>Size <input type="text" name="sizeSearch" placeholder="search"/></th>
       <th></th>

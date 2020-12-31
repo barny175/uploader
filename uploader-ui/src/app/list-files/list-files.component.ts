@@ -5,21 +5,6 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-list-files-search',
-  template: '<input type="text" name="nameSearch" [(ngModel)]="nameSearch" placeholder="search"/>',
-  styleUrls: ['./list-files.component.css']
-})
-export class ListFilesSearchComponent implements OnChanges {
-  @Input() nameSearch: string;
-
-  ngOnChanges(changes: SimpleChanges): void {
-    for (const propName in changes) {
-      console.log(`${propName}`);
-    }
-  }
-}
-
-@Component({
   selector: 'app-list-files',
   templateUrl: './list-files.component.html',
   styleUrls: ['./list-files.component.css']
@@ -30,7 +15,7 @@ export class ListFilesComponent implements OnInit, OnChanges {
   get descSearch() { return this._descSearch; }
   set descSearch(descSearch: string) {
     this._descSearch = descSearch;
-    this.searchDesc();
+    this.loadFiles();
   }
 
   files;
@@ -61,17 +46,17 @@ export class ListFilesComponent implements OnInit, OnChanges {
     );
   }
 
-  searchDesc() {
-    console.log("Search description " + this._descSearch);
-    this.loadFiles();
-  }
-
   loadFiles() {
     console.log("Load files");
-    this.filesService.list(this._descSearch).subscribe(
+    this.filesService.list({ description: this._descSearch, name: this.nameSearch, size: null }).subscribe(
       response => {
         this.files = response.files
       }
     );
+  }
+
+  onEnter(value: string) {
+    console.log(`Filter names (${value})`);
+    this.loadFiles();
   }
 }

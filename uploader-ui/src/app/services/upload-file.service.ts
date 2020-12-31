@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpRequest, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { APP_CONFIG, AppConfig } from '../app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadFileService {
-  private baseUrl = 'http://localhost:18080';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    @Inject(APP_CONFIG) private config: AppConfig) { }
 
   upload(file: File, description: string): Observable<HttpEvent<any>> {
 
@@ -17,7 +18,7 @@ export class UploadFileService {
     formData.append('file', file);
     formData.append('description', description);
 
-    const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
+    const req = new HttpRequest('POST', `${this.config.baseUrl}/upload`, formData, {
       reportProgress: true,
       responseType: 'json'
     });
