@@ -33,6 +33,3 @@ TODO
 -- kdyz neni zadan description, tak disable submitted
 -- kdyz dam submit, tak se provola upload service
 -- kdyz upload service vraci chybu, tak se zobrazi uzivateli
-- search by name
-- search by size
-- search by description

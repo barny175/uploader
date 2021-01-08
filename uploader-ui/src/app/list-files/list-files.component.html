@@ -3,7 +3,7 @@
     <tr>
       <th>Filename <input type="text" #nameSearch (keyup.enter)="onEnter(nameSearch.value)" placeholder="search"/></th>
       <th>Description <input type="text" name="descSearch" [(ngModel)]="descSearch" placeholder="search"/></th>
-      <th>Size <input type="text" name="sizeSearch" placeholder="search"/></th>
+      <th>Size <input type="text" #sizeSearch (keyup.enter)="onSizeEnter(sizeSearch.value)" placeholder="0" numbersOnly/></th>
       <th></th>
     </tr>
 

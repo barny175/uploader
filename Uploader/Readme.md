@@ -1,9 +1,7 @@
 Todo
-- properly handle errors
 - search files by size, by name
+- properly handle errors
 - check na velikost souboru v klientovi
-- zobrazit správně “required” do description v klientovi když ho nevyplní
-- baseUrl je zkopírované v obou servicach
 - UI tests - test that file over 500KB cannot be uploaded
 
 ## Context

@@ -10,11 +10,14 @@ import { ListFilesComponent } from './list-files/list-files.component';
 
 import { AppConfigModule } from './app.config';
 
+import { NumberDirective } from './numbers-only.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
     UploadFileComponent,
     ListFilesComponent,
+    NumberDirective,
   ],
   imports: [
     BrowserModule,

@@ -18,10 +18,8 @@ export class ListFilesService {
       responseType: 'json'
     };
 
-    const params = new HttpParams({ fromObject: filter });
-
     const options = {
-      params: params
+      params: this.httpParams(filter)
     };
 
     return this.http.get<Files>(`${this.config.baseUrl}/list`, options);
@@ -36,5 +34,14 @@ export class ListFilesService {
       })
     };
     return this.http.delete(`${this.config.baseUrl}/${id}`, httpOptions);
+  }
+
+  httpParams(filter: object): HttpParams {
+      let params = new HttpParams();
+      Object.keys(filter).forEach(key => {
+        filter[key] && (params = params.append(key, filter[key]))
+      });
+
+      return params;
   }
 }

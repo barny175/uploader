@@ -29,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Martin Barnas (martin.barnas@avast.com)
  * @since 21/10/2020.
  */
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @WebMvcTest
 @ContextConfiguration(classes = { FileController.class })
@@ -50,8 +49,8 @@ class FileControllerIT {
 
         when(fileService.list())
                 .thenReturn(List.of(
-                        new FileDescriptor("file1", 33, "desc 1", 1L),
-                        new FileDescriptor("file2", 66, "Desc 2", 2L)
+                        new FileDescriptor("elephant", 33, "big animal", 1L),
+                        new FileDescriptor("tiger", 66, "dangerous animal", 2L)
                 ));
     }
 
@@ -80,20 +79,62 @@ class FileControllerIT {
         mockMvc.perform(MockMvcRequestBuilders.get("/list"))
                 .andDo(MockMvcResultHandlers.log())
                 .andExpect(status().is(200))
-                .andExpect(jsonPath("files[0].filename").value("file1"))
-                .andExpect(jsonPath("files[1].filename").value("file2"))
+                .andExpect(jsonPath("files[0].filename").value("elephant"))
+                .andExpect(jsonPath("files[1].filename").value("tiger"))
                 .andReturn();
     }
 
     @Test
-    public void testListWithFilter() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/list").param("description", "2"))
+    public void testListWithDescriptionFilter() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/list").param("description", "dang"))
                 .andDo(MockMvcResultHandlers.log())
                 .andExpect(status().is(200))
-                .andExpect(jsonPath("files[0].filename").value("file2"))
+                .andExpect(jsonPath("files[0].filename").value("tiger"))
                 .andReturn();
     }
 
+    @Test
+    public void testListWithNameFilter() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/list").param("name", "pha"))
+                .andDo(MockMvcResultHandlers.log())
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("files[0].filename").value("elephant"))
+                .andReturn();
+    }
+
+    @Test
+    public void testListWithNameAndDescriptionFilter() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/list")
+                        .param("description", "anger")
+                        .param("name", "ige"))
+                .andDo(MockMvcResultHandlers.log())
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("files[0].filename").value("tiger"))
+                .andReturn();
+    }
+
+    @Test
+    public void testListWithSizeFilter() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/list")
+                        .param("size", "66"))
+                .andDo(MockMvcResultHandlers.log())
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("files[0].filename").value("tiger"))
+                .andReturn();
+    }
+
+    @Test
+    public void testListWithSizeFilterNoResult() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/list")
+                        .param("size", "123"))
+                .andDo(MockMvcResultHandlers.log())
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("files").isEmpty())
+                .andReturn();
+    }
 
     @Test
     public void testDelete() throws Exception {

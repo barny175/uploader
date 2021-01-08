@@ -12,6 +12,8 @@ import { Observable } from 'rxjs';
 export class ListFilesComponent implements OnInit, OnChanges {
   nameSearch: string;
   _descSearch: string;
+  sizeSearch: number;
+
   get descSearch() { return this._descSearch; }
   set descSearch(descSearch: string) {
     this._descSearch = descSearch;
@@ -48,7 +50,7 @@ export class ListFilesComponent implements OnInit, OnChanges {
 
   loadFiles() {
     console.log("Load files");
-    this.filesService.list({ description: this._descSearch, name: this.nameSearch, size: null }).subscribe(
+    this.filesService.list({ description: this._descSearch, name: this.nameSearch, size: this.sizeSearch }).subscribe(
       response => {
         this.files = response.files
       }
@@ -57,6 +59,13 @@ export class ListFilesComponent implements OnInit, OnChanges {
 
   onEnter(value: string) {
     console.log(`Filter names (${value})`);
+    this.nameSearch = value;
+    this.loadFiles();
+  }
+
+  onSizeEnter(value: number) {
+    console.log(`Filter size (${value})`);
+    this.sizeSearch = value;
     this.loadFiles();
   }
 }
